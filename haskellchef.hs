@@ -128,8 +128,8 @@ participanteEstrella participantes = foldl1 mejorParticipante participantes
 
 mejorParticipante :: Participante -> Participante -> Participante
 mejorParticipante participanteGanador participanteNuevo
-  | esMejorQue (cocinar participanteGanador) (cocinar participanteNuevo) = participanteGanador
-  | otherwise = participanteNuevo
+  | esMejorQue (cocinar participanteNuevo) (cocinar participanteGanador) = participanteNuevo
+  | otherwise = participanteGanador
 
 
 -- ======= PARTE D =======
