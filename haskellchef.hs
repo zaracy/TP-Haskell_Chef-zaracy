@@ -72,14 +72,14 @@ tieneHarina ingrediente = ingrediente == "harina"
 
 -- esComplejo
 esComplejo :: Plato -> Bool
-esComplejo componentes UnPlato = length (componentes unPlato) > 5 && dificultad unPlato > 7
+esComplejo unPlato = length (componentes unPlato) > 5 && dificultad unPlato > 7
 
 -- noAptoHipertension
 noAptoHipertension :: Plato -> Bool
-noAptoHiperTension unPlato = cantidadDeSal unPlato > 2
+noAptoHipertension unPlato = cantidadDeSal unPlato > 2
 
-cantidadeDeSal :: Plato -> Peso
-cantidadDeSal unPlato = sum ( map pesoDelComponente (componentes unPlato) )
+cantidadDeSal :: Plato -> Peso
+cantidadDeSal unPlato = sum ( map pesoDelComponente (filter esSal (componentes unPlato) ))
 
 pesoDelComponente :: Componente -> Peso
 pesoDelComponente (_, peso) = peso
