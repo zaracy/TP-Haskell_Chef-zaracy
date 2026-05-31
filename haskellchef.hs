@@ -82,10 +82,10 @@ noAptoHipertension :: Plato -> Bool
 noAptoHiperTension unPlato = cantidadDeSal unPlato > 2
 
 cantidadeDeSal :: Plato -> Peso
-cantidadDeSal unPlato = sum ( map pesoDeSal (componentes unPlato) )
+cantidadDeSal unPlato = sum ( map pesoDelComponente (componentes unPlato) )
 
-pesoDeSal :: Componente -> Peso
-pesoDeSal (_, peso) = peso
+pesoDelComponente :: Componente -> Peso
+pesoDelComponente (_, peso) = peso
 
 esSal :: Componente -> Bool
 esSal (ingrediente, _) = ingrediente == "sal"
@@ -126,3 +126,26 @@ pepe = UnParticipante {
 -- FUNCIONALIDADES
 --cocinar: vemos como queda in plato de un participante luego de aplicar todos sus trucos a su especialidad
 cocinar :: Participante -> Plato
+cocinar unParticipante = foldl aplicarTruco (especialidad unParticipante) (trucos unParticipante)
+
+aplicarTruco :: Plato -> Truco -> Plato
+aplicarTruco unPlato unTruco = unTruco unPlato
+
+{- esMejorQue: un plato es mejor que otro si tien mas dificultad pero la suma de los pesos de sus
+componentes es menor -}
+esMejorQue :: Plato -> Plato -> Bool
+esMejorQue plato1 plato2 = dificultad plato1 > dificultad plato2 && pesoTotalDelPlato plato1 < pesoTotalDelPlato plato2
+
+pesoTotalDelPlato :: Plato -> Peso
+pesoTotalDelPlato unPlato = sum (map pesoDelComponente (componentes unPlato))
+
+{- participanteEstrella: dada una lista de participantes, diremos que la estrella es quien luego de que todo
+el grupo cocine, tiene el mejor plato
+-}
+participanteEstrella :: [Participante] -> Participante
+participanteEstrella participantes = foldl1 mejorParticipante participantes
+
+mejorParticipante :: Participante -> Participante -> Participante
+mejorParticipante participante1 participante2
+  | esMejorQue (cocinar participante1) (cocinar participante2) = participante1
+  | otherwise = participante2
