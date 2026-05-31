@@ -1,4 +1,4 @@
--- Parte A
+-- ======= PARTE A =======
 
 type Nombre = String
 type Truco = Plato -> Plato
@@ -90,3 +90,39 @@ pesoDeSal (_, peso) = peso
 esSal :: Componente -> Bool
 esSal (ingrediente, _) = ingrediente == "sal"
 
+
+-- ======= PARTE B =======
+{-
+en la prueba piloto del programa va a estar participando Pepe Ronccino, quien tiene unos trucazos bajo 
+la manga, como darle sabor a un plato con 2 gramos de sal y 5 gramos de azucar, simplificarlo y 
+duplicar su porcion. Su especialidad es un plano complejo y no apto para personas hipertensas. Modelar
+a pepe y a su plato
+-}
+pepe :: Participante
+pepe = UnParticipante {
+  nombre = "Pepe Ronccino",
+  trucos = [darSabor 2 5, simplificar, duplicarPorcion],
+  especialidad = platoDePepe
+}
+
+platoDePepe :: Plato
+platoDePepe = UnPlato {
+  dificultad = 8,   -- mayor a 7, y tiene 6 (>5) componentes entonces es complejo
+  componentes = [("carne", 100), ("sal", 3), ("azucar", 5), ("harina", 50), ("huevos", 3), ("lacteos", 4)]
+}
+
+{-
+pepe = UnParticipante {
+  nombre = "Pepe Ronccino",
+  trucos = [darSabor 2 5, simplificar, duplicarPorcion],
+  especialidad = UnPlato {
+    dificultad = 8,   -- mayor a 7, entonces es complejo (tiene mas de 5 componentes)
+    componentes = [("carne", 100), ("sal", 3), ("azucar", 5), ("harina", 50), ("huevos", 3), ("lacteos", 4)]
+  }
+}  creo que tambien sirve hacerlo asi, pero separar ambos record syntax me parece mas claro -}
+
+-- ======= PARTE C =======
+
+-- FUNCIONALIDADES
+--cocinar: vemos como queda in plato de un participante luego de aplicar todos sus trucos a su especialidad
+cocinar :: Participante -> Plato
