@@ -1,9 +1,9 @@
-# TP Haskell Chef
+# Ejercicio Haskell Chef
 
 Ejercicio integrador - Paradigma Funcional
 
 
-## Estado del TP
+## Estado
 
 Resueltas:
 
